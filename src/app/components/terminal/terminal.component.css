@@ -1,0 +1,31 @@
+.terminal {
+  background-color: black;
+  color: white;
+  font-family: monospace;
+  padding: 10px;
+  height: 300px;
+  overflow-y: auto;
+  border-radius: 5px;
+}
+
+.output {
+  min-height: 200px;
+  white-space: pre-wrap;
+}
+
+.input-line {
+  display: flex;
+}
+
+.input-line span {
+  margin-right: 5px;
+}
+
+input {
+  background: none;
+  border: none;
+  color: white;
+  font-family: monospace;
+  width: 100%;
+  outline: none;
+}

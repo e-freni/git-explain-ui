@@ -1,0 +1,12 @@
+<div class="p-2">
+  <div *ngIf="!lastCommand">
+    Explanation
+  </div>
+  <div *ngIf="lastCommand === 'git init'">
+    Crea una cartella nascosta .git nella directory corrente.
+    Inizializza un nuovo repository Git, che può essere usato per il versionamento del codice.
+    Imposta il repository locale, permettendoti di iniziare a tracciare modifiche e creare commit.
+    Se il repository è già inizializzato, il comando non lo sovrascrive, ma semplicemente conferma che il repository
+    esiste già.
+  </div>
+</div>
