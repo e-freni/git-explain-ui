@@ -1,31 +1,21 @@
+@import "tailwindcss";
+
 .terminal {
-  background-color: black;
-  color: white;
-  font-family: monospace;
-  padding: 10px;
-  height: 300px;
-  overflow-y: auto;
-  border-radius: 5px;
+  @apply bg-black text-white font-mono h-full;
 }
 
 .output {
-  min-height: 200px;
-  white-space: pre-wrap;
+  @apply min-h-[95%] max-h-[95%] whitespace-pre-wrap text-[1.1em] overflow-auto;
 }
 
 .input-line {
-  display: flex;
+  @apply flex;
 }
 
 .input-line span {
-  margin-right: 5px;
+  @apply mr-1;
 }
 
 input {
-  background: none;
-  border: none;
-  color: white;
-  font-family: monospace;
-  width: 100%;
-  outline: none;
+  @apply bg-transparent border-none text-white font-mono w-full outline-none;
 }

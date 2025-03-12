@@ -38,12 +38,12 @@ export class TerminalComponent {
   processCommand(command: string): string {
     switch (command.trim()) {
       case 'help':
-        return 'Available commands: help, clear, ls, pwd';
+        return 'Available commands: are git commands and help, clear, ls';
       case 'clear':
         this.terminalOutput = [];
         return '';
       case 'ls':
-        return 'file1.txt  file2.txt  project/';
+        return 'file1.txt  file2.txt';
       case 'pwd':
         return `${this.projectHome}`;
       case 'git init':

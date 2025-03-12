@@ -1,9 +1,9 @@
-<div class="terminal">
+<div class="terminal px-2">
   <div class="output">
     <p *ngFor="let line of terminalOutput">{{ line }}</p>
-  </div>
-  <div class="input-line">
-    <span>{{ prompt }}</span>
-    <input type="text" [(ngModel)]="currentCommand" (keyup.enter)="executeCommand()" autofocus />
+    <div class="input-line">
+      <span>{{ prompt }}</span>
+      <input type="text" [(ngModel)]="currentCommand" (keyup.enter)="executeCommand()" autofocus />
+    </div>
   </div>
 </div>

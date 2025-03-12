@@ -10,12 +10,10 @@ export class CommandService {
 
   constructor() {}
 
-  // Imposta l'ultimo comando
   setCommand(command: string) {
     this.commandSubject.next(command);
   }
 
-  // Ottieni l'ultimo comando inviato
   getCommand(): string | null {
     return this.commandSubject.getValue();
   }
