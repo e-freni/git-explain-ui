@@ -2,7 +2,5 @@
   <div *ngIf="!lastCommand">
     Explanation
   </div>
-  <app-git-init *ngIf="lastCommand === 'git init'">
-
-  </app-git-init>
+  <app-git-init *ngIf="lastCommand?.includes('git init')"></app-git-init>
 </div>

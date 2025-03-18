@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 .terminal {
-  @apply bg-black text-white font-mono h-full;
+  @apply bg-black text-white font-mono h-screen max-h-full overflow-y-auto;
 }
 
 .output {
-  @apply min-h-[95%] max-h-[95%] whitespace-pre-wrap text-[1.1em] overflow-auto;
+  @apply scroll-auto whitespace-pre-wrap text-[1.1em] overflow-auto;
 }
 
 .input-line {

@@ -1,5 +1,5 @@
 import { NgForOf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommandService } from '../../services/command.service';
 
@@ -13,16 +13,16 @@ import { CommandService } from '../../services/command.service';
   styleUrl: './terminal.component.css'
 })
 export class TerminalComponent {
-  prompt = '$';
+  prompt = 'user@host:~$';
   currentCommand = '';
   terminalOutput: string[] = [];
   projectHome = "/home/user/opt/your-super-software-project/"
+  @ViewChild('inputField') inputField!: ElementRef;
 
 
   constructor(private commandService: CommandService) {
   }
 
-  // Simula l'esecuzione di un comando
   executeCommand() {
     if (this.currentCommand.trim() === '') return;
 
@@ -35,23 +35,40 @@ export class TerminalComponent {
     this.currentCommand = '';
   }
 
+  focusInput() {
+    this.inputField?.nativeElement.focus();
+  }
+
   processCommand(command: string): string {
-    switch (command.trim()) {
-      case 'help':
-        return 'Available commands: are git commands and help, clear, ls';
-      case 'clear':
-        this.terminalOutput = [];
-        return '';
-      case 'ls':
-        return 'file1.txt  file2.txt';
-      case 'pwd':
-        return `${this.projectHome}`;
-      case 'git init':
-        this.commandService.setCommand('git init')
-        return `Initialized empty Git repository in ${this.projectHome}`;
-      default:
-        this.commandService.setCommand('')
-        return `Command not found: ${command}`;
+    command = command.trim();
+
+    // TODO find another solution that if chain is horrible
+    if (command === 'help') {
+      return 'Available commands: help, clear, ls and git commands, of course';
+    }
+    if (command === 'clear') {
+      this.terminalOutput = [];
+      this.commandService.setCommand('');
+      return '';
+    }
+    if (command.includes('ls')) {
+      let visibleFiles = 'file1.txt  file2.txt';
+      if(command.includes('-la')){
+        return visibleFiles + " easter_egg_hidden_file.txt"
+      }
+      return visibleFiles;
+    }
+    if (command === 'pwd') {
+      return `${this.projectHome}`;
+    }
+    if (command.includes('git init')) {
+      this.commandService.setCommand(command);
+      let confirmMessage = `Initialized empty Git repository in ${this.projectHome}`;
+      return command.includes('-q')? '' : confirmMessage;
+    }
+    {
+      this.commandService.setCommand('');
+      return `Command not found: ${command}`;
     }
   }
 }
