@@ -1,44 +1,41 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Type } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
+import { GitInitComponent } from '../components/git-components/git-init/git-init.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommandService {
   private commandSubject = new BehaviorSubject<string | null>(null);
+  private currentComponentSubject = new BehaviorSubject<Type<any> | null>(null);
   command$ = this.commandSubject.asObservable();
-  private commands: { [key: string]: string } = {};
+  currentComponent$ = this.currentComponentSubject.asObservable();
+  private commands: { [key: string]: Type<any> } = {
+    // 'help': HelpComponent,
+    // 'clear': ClearComponent,
+    // 'ls': LsComponent,
+    // 'pwd': PwdComponent,
+    'git init': GitInitComponent,
+    // 'git status': GitStatusComponent,
+  };
 
 
-  constructor(private http: HttpClient) {
-    this.loadCommands();
-  }
+  constructor() {}
 
-  private loadCommands() {
-    this.http.get<{ [key: string]: string }>('/assets/commands.json').pipe(
-      tap(commands => {
-        this.setCommands(commands);
-      }),
-      catchError(error => {
-        console.error('Failed to load commands:', error);
-        return [];
-      })
-    ).subscribe();
-  }
-
-  setCommands(commands: { [key: string]: string }) {
-    this.commands = commands;
-  }
-
-  getComponentForCommand(command: string): string | null {
-    const commandBase = Object.keys(this.commands).find(cmd => command.startsWith(cmd));
-
-    return commandBase ? this.commands[commandBase] : null;
-  }
-
-  setCommand(command: string) {
+  setCommand(command: string): void {
     this.commandSubject.next(command);
+    const component = this.getComponentForCommand(command);
+    if (component) {
+      this.currentComponentSubject.next(component);
+    } else {
+      this.currentComponentSubject.next(null);
+    }
+  }
+
+  getComponentForCommand(command: string): Type<any> | null {
+    const commandBase = Object.keys(this.commands).find(cmd => command.startsWith(cmd));
+    return commandBase ? this.commands[commandBase] : null;
   }
 
 }

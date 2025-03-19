@@ -1,8 +1,0 @@
-{
-  "help": "HelpComponent",
-  "clear": "ClearComponent",
-  "ls": "LsComponent",
-  "pwd": "PwdComponent",
-  "git init": "GitInitComponent",
-  "git status": "GitStatusComponent"
-}
