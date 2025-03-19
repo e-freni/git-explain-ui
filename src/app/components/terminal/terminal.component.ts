@@ -7,7 +7,7 @@ import { CommandService } from '../../services/command.service';
   selector: 'app-terminal',
   imports: [
     FormsModule,
-    NgForOf
+    NgForOf,
   ],
   templateUrl: './terminal.component.html',
   styleUrl: './terminal.component.css'
@@ -20,7 +20,9 @@ export class TerminalComponent {
   @ViewChild('inputField') inputField!: ElementRef;
 
 
-  constructor(private commandService: CommandService) {
+  constructor(
+    private commandService: CommandService,
+  ) {
   }
 
   executeCommand() {
@@ -42,33 +44,43 @@ export class TerminalComponent {
   processCommand(command: string): string {
     command = command.trim();
 
-    // TODO find another solution that if chain is horrible
-    if (command === 'help') {
-      return 'Available commands: help, clear, ls and git commands, of course';
-    }
-    if (command === 'clear') {
-      this.terminalOutput = [];
-      this.commandService.setCommand('');
-      return '';
-    }
-    if (command.includes('ls')) {
-      let visibleFiles = 'file1.txt  file2.txt';
-      if(command.includes('-la')){
-        return visibleFiles + " easter_egg_hidden_file.txt"
-      }
-      return visibleFiles;
-    }
-    if (command === 'pwd') {
-      return `${this.projectHome}`;
-    }
-    if (command.includes('git init')) {
+    // TODO restore commands with dedicated components
+    // if (command === 'help') {
+    //   return 'Available commands: help, clear, ls and git commands, of course';
+    // }
+    // if (command === 'clear') {
+    //   this.terminalOutput = [];
+    //   this.commandService.setCommand('');
+    //   return '';
+    // }
+    // if (command.includes('ls')) {
+    //   let visibleFiles = 'file1.txt  file2.txt';
+    //   if(command.includes('-la')){
+    //     return visibleFiles + " easter_egg_hidden_file.txt"
+    //   }
+    //   return visibleFiles;
+    // }
+    // if (command === 'pwd') {
+    //   return `${this.projectHome}`;
+    // }
+    // if (command.includes('git init')) {
+    //   this.commandService.setCommand(command);
+    //   let confirmMessage = `Initialized empty Git repository in ${this.projectHome}`;
+    //   return command.includes('-q')? '' : confirmMessage;
+    // }
+    // {
+      // this.commandService.setCommand('');
+      // return `Command not found: ${command}`;
+    // }
+
+    const componentName = this.commandService.getComponentForCommand(command);
+
+    if (componentName) {
       this.commandService.setCommand(command);
-      let confirmMessage = `Initialized empty Git repository in ${this.projectHome}`;
-      return command.includes('-q')? '' : confirmMessage;
-    }
-    {
+    } else {
+      console.log(`Command not found: ${command}`);
       this.commandService.setCommand('');
-      return `Command not found: ${command}`;
     }
+    return command;
   }
 }

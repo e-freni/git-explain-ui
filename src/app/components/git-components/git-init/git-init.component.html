@@ -8,8 +8,8 @@
     Imposta il repository locale, permettendoti di iniziare a tracciare modifiche e creare commit.
     Se il repository è già inizializzato, il comando non lo sovrascrive, ma semplicemente conferma che il repository
     esiste già.
-    <div *ngIf="command?.includes('-q')">
-      -q = Scrive solo i messaggi di errore o di warning. Il resto dell'output viene soppresso.
+    <div *ngIf="check(command!, '-q', '--quiet')">
+      -q/--quiet = Scrive solo i messaggi di errore o di warning. Il resto dell'output viene soppresso.
     </div>
   </div>
 
