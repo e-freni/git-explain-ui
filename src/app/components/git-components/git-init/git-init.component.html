@@ -1,15 +1,20 @@
 <div class="flex flex-col items-center">
-  <div class="self-center">
+  <div>
     <img ngSrc="assets/git_init.webp" alt="git init image" height="200" width="200">
   </div>
   <div class="p-10">
-    Crea una cartella nascosta .git nella directory corrente.
-    Inizializza un nuovo repository Git, che può essere usato per il versionamento del codice.
-    Imposta il repository locale, permettendoti di iniziare a tracciare modifiche e creare commit.
+    <ul class="list-decimal">
+      <li>Crea una cartella nascosta .git nella directory corrente.</li>
+      <li>Inizializza un nuovo repository Git, che può essere usato per il versionamento del codice.</li>
+    <li>Imposta il repository locale, permettendoti di iniziare a tracciare modifiche e creare commit.</li>
+    </ul>
     Se il repository è già inizializzato, il comando non lo sovrascrive, ma semplicemente conferma che il repository
     esiste già.
-    <div *ngIf="check(command!, '-q', '--quiet')">
-      -q/--quiet = Scrive solo i messaggi di errore o di warning. Il resto dell'output viene soppresso.
+    <div *ngIf="checkQuiet()">
+      <p>-q/--quiet = Scrive solo i messaggi di errore o di warning. Il resto dell'output viene soppresso.</p>
+    </div>
+    <div *ngIf="check(command!, '--bare')">
+      <p>--bare = Create a bare repository. If GIT_DIR environment is not set, it is set to the current working directory.</p>
     </div>
   </div>
 

@@ -1,6 +1,7 @@
 import { NgForOf } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CommandFeedbackService } from '../../services/command-feedback.service';
 import { CommandService } from '../../services/command.service';
 
 @Component({
@@ -12,27 +13,32 @@ import { CommandService } from '../../services/command.service';
   templateUrl: './terminal.component.html',
   styleUrl: './terminal.component.css'
 })
-export class TerminalComponent {
+export class TerminalComponent implements OnInit {
   prompt = 'user@host:~$';
   currentCommand = '';
   terminalOutput: string[] = [];
-  projectHome = "/home/user/opt/your-super-software-project/"
   @ViewChild('inputField') inputField!: ElementRef;
 
 
   constructor(
     private commandService: CommandService,
-  ) {
-  }
+    private commandFeedbackService: CommandFeedbackService,
+  ) {}
+
+  ngOnInit(): void {
+
+    this.commandFeedbackService.terminalOutput$.subscribe(terminalOutput => {
+      this.terminalOutput = terminalOutput;
+    });
+    }
 
   executeCommand() {
     if (this.currentCommand.trim() === '') return;
 
     const userCommand = `${this.prompt} ${this.currentCommand}`;
-    this.terminalOutput.push(userCommand);
+    this.commandFeedbackService.setFeedback(userCommand);
 
-    const response = this.processCommand(this.currentCommand);
-    this.terminalOutput.push(response);
+    this.processCommand(this.currentCommand);
 
     this.currentCommand = '';
   }
@@ -41,7 +47,7 @@ export class TerminalComponent {
     this.inputField?.nativeElement.focus();
   }
 
-  processCommand(command: string): string {
+  processCommand(command: string): void {
     command = command.trim();
 
     // TODO restore commands with dedicated components
@@ -68,19 +74,13 @@ export class TerminalComponent {
     //   let confirmMessage = `Initialized empty Git repository in ${this.projectHome}`;
     //   return command.includes('-q')? '' : confirmMessage;
     // }
-    // {
-      // this.commandService.setCommand('');
-      // return `Command not found: ${command}`;
-    // }
 
-    const componentName = this.commandService.getComponentForCommand(command);
+    const component = this.commandService.getComponentForCommand(command);
 
-    if (componentName) {
+    if (component) {
       this.commandService.setCommand(command);
-    } else {
-      console.log(`Command not found: ${command}`);
-      this.commandService.setCommand('');
     }
-    return command;
+    this.commandFeedbackService.setFeedbackByComponent(component, command);
+
   }
 }

@@ -1,6 +1,6 @@
-<div class="p-2">
+<div class="container">
   <div *ngIf="!lastCommand">
     Explanation
   </div>
-  <app-git-init *ngIf="lastCommand?.includes('git init')"></app-git-init>
+  <ng-container *ngComponentOutlet="currentComponent"></ng-container>
 </div>

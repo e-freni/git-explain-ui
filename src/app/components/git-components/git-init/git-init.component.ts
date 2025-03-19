@@ -2,6 +2,7 @@ import { NgIf, NgOptimizedImage } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { CommandContentCheckerService } from '../../../services/command-content-checker.service';
+import { CommandFeedbackService } from '../../../services/command-feedback.service';
 import { CommandService } from '../../../services/command.service';
 
 @Component({
@@ -17,10 +18,12 @@ export class GitInitComponent implements OnInit, OnDestroy {
 
   public command: string | null = '';
   private destroy$ = new Subject<void>();
+  private projectHome = "/home/user/opt/your-super-software-project/" //TODO this variable should become dynamic in order to simulate OS behaviour
 
   constructor(
     private commandService: CommandService,
-    public commandContentCheckerService: CommandContentCheckerService
+    private commandContentCheckerService: CommandContentCheckerService,
+    private commandFeedbackService: CommandFeedbackService
   ) {
   }
 
@@ -28,8 +31,9 @@ export class GitInitComponent implements OnInit, OnDestroy {
     this.commandService.command$
       .pipe(takeUntil(this.destroy$))
       .subscribe(command => {
-      this.command = command;
-    });
+        this.command = command;
+        this.updateCommandFeedback()
+      });
   }
 
   ngOnDestroy(): void {
@@ -39,5 +43,17 @@ export class GitInitComponent implements OnInit, OnDestroy {
 
   check(command:string, ...parameters: string[]): boolean {
     return this.commandContentCheckerService.check(command, ...parameters)
+  }
+
+  checkQuiet() {
+    return this.check(this.command!, '-q', '--quiet')
+  }
+
+  updateCommandFeedback(): void {
+    if(this.checkQuiet()){
+      this.commandFeedbackService.setFeedback('');
+      return;
+    }
+    this.commandFeedbackService.setFeedback(`Initialized empty Git repository in ${this.projectHome}`);
   }
 }
