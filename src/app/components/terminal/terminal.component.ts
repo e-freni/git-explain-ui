@@ -51,9 +51,7 @@ export class TerminalComponent implements OnInit {
     command = command.trim();
 
     // TODO restore commands with dedicated components
-    // if (command === 'help') {
-    //   return 'Available commands: help, clear, ls and git commands, of course';
-    // }
+
     // if (command === 'clear') {
     //   this.terminalOutput = [];
     //   this.commandService.setCommand('');

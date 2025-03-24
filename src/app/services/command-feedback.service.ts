@@ -30,4 +30,10 @@ export class CommandFeedbackService {
     output.push(feedback);
     this.terminalOutputSubject.next(output);
   }
+
+  clear(){
+    let output = this.terminalOutputSubject.getValue();
+    output.length = 0;
+    this.terminalOutputSubject.next(output);
+  }
 }

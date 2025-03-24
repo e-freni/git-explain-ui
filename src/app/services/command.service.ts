@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable, Type } from '@angular/core';
-import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { GitInitComponent } from '../components/git-components/git-init/git-init.component';
+import { ClearComponent } from '../components/os-components/clear/clear.component';
+import { HelpComponent } from '../components/os-components/help-component/help.component';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,8 @@ export class CommandService {
   command$ = this.commandSubject.asObservable();
   currentComponent$ = this.currentComponentSubject.asObservable();
   private commands: { [key: string]: Type<any> } = {
-    // 'help': HelpComponent,
-    // 'clear': ClearComponent,
+    'help': HelpComponent,
+    'clear': ClearComponent,
     // 'ls': LsComponent,
     // 'pwd': PwdComponent,
     'git init': GitInitComponent,
