@@ -1,12 +1,14 @@
 import { NgComponentOutlet, NgIf } from '@angular/common';
 import { Component, OnInit, Type } from '@angular/core';
 import { CommandService } from '../../services/command.service';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-explanation',
   imports: [
     NgIf,
-    NgComponentOutlet
+    NgComponentOutlet,
+    TranslatePipe
   ],
   templateUrl: './explanation.component.html',
   styleUrl: './explanation.component.css'
@@ -24,6 +26,9 @@ export class ExplanationComponent implements OnInit {
   ngOnInit() {
     this.commandService.currentComponent$.subscribe(currentComponent => {
       this.currentComponent = currentComponent;
+    });
+    this.commandService.command$.subscribe(command => {
+      this.lastCommand = command;
     });
   }
 

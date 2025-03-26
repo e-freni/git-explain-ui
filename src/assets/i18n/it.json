@@ -1,0 +1,10 @@
+{
+  "git-explain-welcome": "Benvenuto su GitExplain — il tuo sandbox interattivo per i comandi Git!",
+  "git-explain-summary": "Impara, testa e padroneggia Git direttamente dal tuo browser!",
+  "git-init-first-step": "Crea, una cartella nascosta .git nella directory corrente.",
+  "git-init-second-step": "Inizializza un nuovo repository Git, che può essere usato per il versionamento del codice.",
+  "git-init-third-step": "Imposta il repository locale, permettendoti di iniziare a tracciare modifiche e creare commit.",
+  "git-init-fourth-step": "Se il repository è già inizializzato, il comando non lo sovrascrive, ma semplicemente conferma che il repository esiste già.",
+  "git-init-quiet-option": "-q/--quiet = Scrive solo i messaggi di errore o di warning. Il resto dell'output viene soppresso.",
+  "git-init-bare-option": "--bare = Create a bare repository. If GIT_DIR environment is not set, it is set to the current working directory."
+}

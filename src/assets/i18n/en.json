@@ -1,0 +1,10 @@
+{
+  "git-explain-welcome": "Welcome to GitExplain — your interactive Git command sandbox!",
+  "git-explain-summary": "Learn, test, and master Git directly in your browser!",
+  "git-init-first-step": "Creates a hidden .git folder in the current directory.",
+  "git-init-second-step": "Initializes a new Git repository, which can be used for versioning code.",
+  "git-init-third-step": "Sets up the local repository, allowing you to start tracking changes and creating commits.",
+  "git-init-fourth-step": "If the repository is already initialized, the command does not overwrite it but simply confirms that the repository already exists.",
+  "git-init-quiet-option": "-q/--quiet = Only prints error or warning messages. All other output is suppressed.",
+  "git-init-bare-option": "--bare = Creates a bare repository. If the GIT_DIR environment variable is not set, it defaults to the current working directory."
+}

@@ -1,6 +1,7 @@
-<div class="container">
-  <div *ngIf="!lastCommand">
-    Explanation
+<div class="container flex  h-full justify-center items-center">
+  <div class="text-center text-2xl" *ngIf="!lastCommand">
+    <p>{{ 'git-explain-welcome' | translate }}</p>
+    <p>{{ 'git-explain-summary' | translate }}</p>
   </div>
   <ng-container *ngComponentOutlet="currentComponent"></ng-container>
 </div>

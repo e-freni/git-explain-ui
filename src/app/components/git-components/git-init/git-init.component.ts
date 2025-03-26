@@ -1,15 +1,17 @@
-import { NgIf, NgOptimizedImage } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
-import { CommandContentCheckerService } from '../../../services/command-content-checker.service';
-import { CommandFeedbackService } from '../../../services/command-feedback.service';
-import { CommandService } from '../../../services/command.service';
+import {NgIf, NgOptimizedImage} from '@angular/common';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subject, takeUntil} from 'rxjs';
+import {CommandContentCheckerService} from '../../../services/command-content-checker.service';
+import {CommandFeedbackService} from '../../../services/command-feedback.service';
+import {CommandService} from '../../../services/command.service';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-git-init',
   imports: [
     NgOptimizedImage,
-    NgIf
+    NgIf,
+    TranslatePipe
   ],
   templateUrl: './git-init.component.html',
   styleUrl: './git-init.component.css'
@@ -41,16 +43,20 @@ export class GitInitComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  check(command:string, ...parameters: string[]): boolean {
-    return this.commandContentCheckerService.check(command, ...parameters)
+  check(command: string, ...parameters: string[]): boolean {
+    return this.commandContentCheckerService.check(command, ...parameters);
   }
 
   checkQuiet() {
-    return this.check(this.command!, '-q', '--quiet')
+    return this.check(this.command!, '-q', '--quiet');
+  }
+
+  checkBare() {
+    return this.check(this.command!, '--bare');
   }
 
   updateCommandFeedback(): void {
-    if(this.checkQuiet()){
+    if (this.checkQuiet()) {
       this.commandFeedbackService.setFeedback('');
       return;
     }

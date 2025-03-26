@@ -1,0 +1,9 @@
+<div class="language-selector">
+  <button *ngFor="let lang of languages"
+          (click)="switchLanguage(lang)"
+          [class.active]="lang.code === currentLanguage"
+          class="lang-btn">
+    <img [ngSrc]="lang.flag" class="rounded outline outline-gray-100 " width="24" height="16" alt="{{ lang.label }}" />
+    {{ lang.label }}
+  </button>
+</div>
