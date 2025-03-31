@@ -5,6 +5,7 @@ import {CommandContentCheckerService} from '../../../services/command-content-ch
 import {CommandFeedbackService} from '../../../services/command-feedback.service';
 import {CommandService} from '../../../services/command.service';
 import {TranslatePipe} from '@ngx-translate/core';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 import {
   Chart,
   ScatterController,
@@ -15,8 +16,7 @@ import {
   Legend,
 } from 'chart.js';
 
-Chart.register(ScatterController, LinearScale, PointElement, LineElement, Tooltip, Legend);
-
+Chart.register(ScatterController, LinearScale, PointElement, LineElement, Tooltip, Legend, ChartDataLabels);
 @Component({
   selector: 'app-git-init',
   imports: [
@@ -61,7 +61,7 @@ export class GitInitComponent implements OnInit, OnDestroy, AfterViewInit {
           {
             label: 'main',
             data: [
-              { x: 0, y: 0, label: 'Init' },
+              { x: 0, y: 0, label: 'init' },
               { x: 0, y: 4, label: 'merge on main' },
             ],
             showLine: true,
@@ -74,9 +74,9 @@ export class GitInitComponent implements OnInit, OnDestroy, AfterViewInit {
           {
             label: 'develop',
             data: [
-              { x: 0, y: 0, label: 'Init' },
-              { x: 1, y: 1, label: 'Start Feature' },
-              { x: 1, y: 2, label: 'feature 1' },
+              { x: 0, y: 0, label: 'init' },
+              { x: 1, y: 1, label: 'start feature' },
+              { x: 1, y: 2, label: 'wip feature' },
               { x: 1, y: 3, label: 'polish' },
               { x: 0, y: 4, label: 'merge on main' },
             ],
@@ -91,6 +91,15 @@ export class GitInitComponent implements OnInit, OnDestroy, AfterViewInit {
       },
       options: {
         plugins: {
+          datalabels: {
+            align: 'right',
+            anchor: 'center',
+            offset: 28,
+            formatter: function (value: { label: any; }) {
+              return value.label;
+            },
+            color: 'black'
+          },
           tooltip: {
             callbacks: {
               label: function (context: any) {
@@ -119,8 +128,13 @@ export class GitInitComponent implements OnInit, OnDestroy, AfterViewInit {
             grid: {
               display: false,
             },
+            border: {
+              display: false,
+            },
           },
           y: {
+            max: 5,
+            min: -1,
             type: 'linear',
             ticks: {
               display: false,
