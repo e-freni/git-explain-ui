@@ -1,19 +1,30 @@
 <div class="flex flex-col items-center ">
-  <div>
-    <canvas class="h-46" id="gitChart"></canvas>
+  <div class="grid grid-cols-3">
+    <div class="h-48 text-center font-bold">
+      <p>Initial structure</p>
+      <canvas class="h-full" id="gitChartInit"></canvas>
+    </div>
+    <div class="h-48 text-center font-bold">
+      <p>GitFlow structure</p>
+      <canvas class="h-full" id="gitChartGitflow"></canvas>
+    </div>
+    <div class="h-48 text-center font-bold">
+      <p>Pull request structure</p>
+      <canvas class="h-full" id="gitChartPullRequest"></canvas>
+    </div>
   </div>
   <div class="p-10">
     <ul class="list-decimal">
-      <li>{{'git-init-first-step' | translate }}</li>
-      <li>{{'git-init-second-step' | translate }}</li>
-    <li>{{'git-init-third-step' | translate }}</li>
+      <li>{{ 'git-init-first-step' | translate }}</li>
+      <li>{{ 'git-init-second-step' | translate }}</li>
+      <li>{{ 'git-init-third-step' | translate }}</li>
     </ul>
-    {{'git-init-fourth-step' | translate }}
+    {{ 'git-init-fourth-step' | translate }}
     <div *ngIf="checkQuiet()">
-      <p>{{'git-init-quiet-option' | translate}}</p>
+      <p>{{ 'git-init-quiet-option' | translate }}</p>
     </div>
     <div *ngIf="checkBare()">
-      <p>{{'git-init-bare-option' | translate}}</p>
+      <p>{{ 'git-init-bare-option' | translate }}</p>
     </div>
   </div>
 </div>

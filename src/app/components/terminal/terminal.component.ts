@@ -30,7 +30,6 @@ export class TerminalComponent implements OnInit {
     this.commandFeedbackService.terminalOutput$.subscribe(terminalOutput => {
       this.terminalOutput = terminalOutput;
     });
-    this.processCommand('git init');
     }
 
   executeCommand() {
